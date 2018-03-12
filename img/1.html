@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style type="text/css">
+        .content{
+            margin:200px auto 0 auto;
+            width:800px;
+            height:400px;  
+            background: #db473c;  
+            color:#fff;
+            /* animation: all 1s; */
+            transition: 0.3s;
+        }
+        .container {
+            margin:200px auto;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation:all 1s;
+            }
+        
+        </style>
+        <div class="container">
+        <div class="content">
+            <video src="../Elementalist Lux — Login Screen.mp4" autoplay="autoplay" loop="loop" width="800px" height="400px"></video>
+        </div>
+        <br>
+        <center><input type="range" id="range" min="-180" max="180" step="3" oninput="changeRange()" style="rotate:90deg">
+            <span id="num"></span>
+        </center>
+        <button onclick="start()">旋转</button>
+        </div>
+        <script type="text/javascript">
+        var x1=0,x2=0;
+        function changeRange(){
+            var num=document.getElementById("num");
+            var range=document.getElementById("range").value;
+            num.innerHTML=range;
+            document.querySelector(".content").style.transform=`rotateY(${range}deg)`;
+        }
+        function start(){
+            setInterval(start1,100);
+        }
+        
+        function start1(){
+            var content=document.querySelector(".content");
+            x1+=Math.random()*10;
+            x2+=Math.random()*10;
+            content.style.transform=`rotateY(${x2}deg) rotateX(${x1}deg) `;
+        }
+            (function(){
+                var content=document.querySelector(".content")
+                    content.onmousemove=function(e){
+                        var evt=e||window.event;
+                        var rotateY=-(content.clientWidth/2-evt.offsetX)/10;
+                        var rotateX=(content.clientHeight/2-evt.offsetY)/10;
+                        content.style="box-shadow: 5px 5px 15px red;"
+                        content.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    }
+                    content.onmouseout=function(e){
+                        content.style.transform=`rotateX(0deg) rotateY(0deg)`;
+                    }
+            }
+            )()
+            
+        </script>
+</body>
+</html>

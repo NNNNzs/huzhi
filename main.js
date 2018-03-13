@@ -120,7 +120,7 @@ function togglUptop(){
 //切换固定
 function togglefixd(){
   // if (isNotVisible(".fr>.box"))
-  if ($(".fr>.box:last").offset().top -85 <=$(window).scrollTop())
+  if ($(".fr>.box:last").offset().top -100 <=$(window).scrollTop())
   {
     $(".fr>.box:last").addClass("fixdd");
     var offsetLeft = $(".fr>.box").offset().left;

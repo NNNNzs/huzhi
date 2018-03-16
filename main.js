@@ -1,6 +1,6 @@
 
 var StartingLine = 0;
-var rowsNumber = 40;
+var rowsNumber = 20;
 var winH = $(window).height();//页面的高度
 var timer = null;
 var timer1 = null;
@@ -27,11 +27,11 @@ function listenScroll() {
 function lazyLoad(){
   var lastDiv = ".container>.fl>.box:last";
   flag=1;
-  if(isVisible(lastDiv))
+  if(isVisible(lastDiv)&&allowCreatebox)
     {//节流
       timer = setTimeout(function() {
       ajax(StartingLine,rowsNumber);
-      console.log(StartingLine);
+      console.log("第"+StartingLine+"至"+(StartingLine+rowsNumber));
       StartingLine+=rowsNumber;
       }, 100);
   }
@@ -42,7 +42,9 @@ function createBox(data){
   if(allowCreatebox){  
     var content = document.getElementById("content");
     var box = document.createElement("div");
-    box.innerHTML = data;
+    data = data.replace("\r\n", "\\r\\n"); 
+    data = JSON.parse(data);
+    box.innerHTML = `<p>${data.name}<span> 时间：${data.date}<span><br><p>内容:${data.liuyan}</p>`;
     box.className = "box";
     var boxx = content.appendChild(box);
     flag = 1;
@@ -59,15 +61,14 @@ function ajax (StartingLine,rowsNumber){
       data: `StartingLine=${StartingLine}&rowsNumber=${rowsNumber}`,
       cache:false,
       //complete:
-     //beforeSend:function(){console.log("开始"+new Date().getTime());},   
+      beforeSend:function(){$(".load").addClass("loading");},   
       success:function(data){
         flag=0;
       //json = eval("(" + data + ")");
-        console.log(data);
-        // data = JSON.parse(data);
-        // data = "姓名："+data.name +" 时间："+data.date + "<br>内容:"+data.liuyan+" id:"+data.id;;
+        // console.log(data);
         // createBox(data);      
         editData(data);
+        $(".load").removeClass("loading");
       },
     });
   }  

@@ -20,6 +20,19 @@ body{
 	border-radius: 1px;
 	z-index: 100;
 }
+.loading{
+	position: fixed;
+	width: 100%;
+	height: 3px;
+	background-color: rgb(104, 105, 236);
+	top: 0px;
+	animation:loading  1.5s infinite ease-in;
+	left:-100%;
+}
+@keyframes loading{
+	0%{left:-100%;}
+	100%{left:0;}
+}
 a{	text-decoration: none;}
 #logo {
 	float: left;
@@ -113,12 +126,12 @@ a{	text-decoration: none;}
 }
 .box{
 	min-height: 100px;
-	text-align: center;
-	/* width: 100%;	 */
+	text-align: left;
 	margin: 15px auto;
 	box-shadow: 2px 2px 3px black;
 }
-.fl .box:first-child{min-height: 50px;text-decoration: none;}
+.fl .box:first-child{min-height: 50px;text-decoration: none;text-align: center;}
+.box:not(:first-child){padding: 1rem 1rem;text-indent:2em;}
 .container .fl .box:first-child ul li{
 	list-style-type: none;
 	float: left;

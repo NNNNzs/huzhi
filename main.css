@@ -26,7 +26,7 @@ body{
 	height: 3px;
 	background-color: rgb(104, 105, 236);
 	top: 0px;
-	animation:loading  1.5s infinite ease-in;
+	animation:loading  1s infinite ease-in;
 	left:-100%;
 }
 @keyframes loading{

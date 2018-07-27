@@ -1,4 +1,3 @@
-
 var StartingLine = 0;
 var rowsNumber = 20;
 var winH = $(window).height();//页面的高度
@@ -6,7 +5,8 @@ var timer = null;
 var timer1 = null;
 var flag = 1;
 var ddiv = `<div class = "box"> ${StartingLine} </div>`;
-allowCreatebox=true;
+var allowCreatebox=true;
+var content = document.getElementById("content");
 $(window).on("scroll",function(){
   listenScroll();togglUptop();togglefixd();
 });
@@ -18,21 +18,16 @@ listenScroll();
 //懒加载
 function listenScroll() {
   clearTimeout(timer);
-    var lastDiv = ".container>.fl>.box:last";//最后一个元素
-    scrollTop = $(window).scrollTop(),//滚动条距离顶部的距离
-    offSetTop = $(lastDiv).offset().top;//在页面中的位置
-    //console.log(offSetTop < (winH + scrollTop));
-    lazyLoad();
-}
-function lazyLoad(){
-  var lastDiv = ".container>.fl>.box:last";
-  flag=1;
-  if(isVisible(lastDiv)&&allowCreatebox)
-    {//节流
+    let lastDiv = ".container>.fl>.box:last";//最后一个元素
+    flag=1;
+    //最后一个元素出现时,加载
+    if(isVisible(lastDiv)&&allowCreatebox)
+    {
+      //节流
       timer = setTimeout(function() {
-      ajax(StartingLine,rowsNumber);
-      console.log("第"+StartingLine+"至"+(StartingLine+rowsNumber));
-      StartingLine+=rowsNumber;
+        ajax(StartingLine,rowsNumber);
+        console.log("第"+StartingLine+"至"+(StartingLine+rowsNumber));
+        StartingLine+=rowsNumber;
       }, 100);
   }
 }
@@ -40,13 +35,12 @@ function lazyLoad(){
 //创建元素并且修改元素内容
 function createBox(data){
   if(allowCreatebox){  
-    var content = document.getElementById("content");
     var box = document.createElement("div");
     data = data.replace("\r\n", "\\r\\n"); 
     data = JSON.parse(data);
     box.innerHTML = `<p>${data.name}<span> 时间：${data.date}<span><br><p>内容:${data.liuyan}</p>`;
     box.className = "box";
-    var boxx = content.appendChild(box);
+    let boxx = content.appendChild(box);
     flag = 1;
   }
 }
@@ -62,13 +56,10 @@ function ajax (StartingLine,rowsNumber){
       cache:false,
       //complete:
       beforeSend:function(){$(".load").addClass("loading");},   
-      success:function(data){
-        flag=0;
-      //json = eval("(" + data + ")");
-        // console.log(data);
-        // createBox(data);      
-        editData(data);
-        $(".load").removeClass("loading");
+      success:function(data){        
+      flag=0; 
+      editData(data);
+      $(".load").removeClass("loading");
       },
     });
   }  
@@ -76,16 +67,15 @@ function ajax (StartingLine,rowsNumber){
 //处理ajax获取的数据
 function editData(data){
   data = data.split("*^^^^^^^^^^*");
-  for(var i=0;i<rowsNumber;i++){
+  for(let i=0;i<rowsNumber;i++){
     if(data[i]){
       createBox(data[i]);
     }
     else{
       allowCreatebox=false;
-      var content = document.getElementById("content");
       var box = document.createElement("div");
       box.innerHTML = "<hr><center>我是有底线的</center><hr>";
-      var boxx = content.appendChild(box);
+      let boxx = content.appendChild(box);
       break;
     }
   }
@@ -138,6 +128,7 @@ function isNotVisible(el) {
 }
 //是否出现在可视范围
 function isVisible(el){
+    scrollTop = $(window).scrollTop();//滚动条距离顶部的距离
     if ($(el).offset().top <(winH + scrollTop))
     return true;
 }

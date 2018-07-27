@@ -1,29 +1,25 @@
 ﻿<?php
 
 header("Content-Type: text/html;charset=utf-8");
-error_reporting(E_ALL^E_NOTICE^E_WARNING);
-$conn =mysql_connect("localhost","root","");
+//error_reporting(E_ALL^E_NOTICE^E_WARNING);
+$conn =mysqli_connect("localhost","root","");
 if(!$conn){ echo "失败"; };
 
 $StartingLine=$_GET['StartingLine'];//查询第几行的数据
 $rowsNumber=$_GET['rowsNumber'];//一次查询多少行
+mysqli_query($conn ,'set names utf8');
 
-mysql_query('set names utf8');
-//$cont = "select * from stuinfo limit ".$sqlrow.",1";//第sqlrow行开始，后一个
-// mysql_select_db("info", $conn);
-// $result = mysql_query($cont);
- $cont = "select * from info order by id DESC limit ".$StartingLine.",".$rowsNumber;
-// $cont = "select * from info where id=355";
- mysql_select_db("lyb", $conn);
-$result = mysql_query($cont);
+//第StartLine行开始，后rowsNumber条数据
+$cont = "select * from info order by id DESC limit ".$StartingLine.",".$rowsNumber;
+mysqli_select_db($conn,"lyb");
+$result = mysqli_query($conn,$cont);
 $arr=[];
-while ($row = mysql_fetch_array($result,MYSQL_ASSOC)){
+while ($row = mysqli_fetch_array($result,MYSQL_ASSOC)){
     $row1 = JSON($row);
     array_push($arr,$row1);
-//	echo "查询的是第".$sqlrow . "行";
 }
-echo arrayToJson($arr);
 
+ echo arrayToJson($arr);
 // 将json数组串成标准化的
 // {}{}{}{} => {},{},{}
 function arrayToJson($temp1){
@@ -36,7 +32,6 @@ function arrayToJson($temp1){
     return $str;
 }
 
-$count = "select count(*) from stuinfo";//查询总共多少行 注意json
 
 //把字符串中中文乱码转码
 function arrayRecursive(&$array, $function, $apply_to_keys_also = false)

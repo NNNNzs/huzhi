@@ -38,7 +38,7 @@ a{	text-decoration: none;}
 	float: left;
 	display: inline-block;
 	height: 70px;
-	margin-left: 15%;
+	margin-left: calc(50% - 500px);
 	color: rgb(104, 105, 236);
 	font-size: 3em;
 }
@@ -97,31 +97,26 @@ a{	text-decoration: none;}
 }
 .container{
 	position:absolute;
-	top:65px;
-	margin: 10px 15% ;
-	/* margin-top: 10px; */
-	/* width:992px; */
-	width: 70%;
-	min-width:1000px;
+	width:1000px;
+	margin: 75px auto;
+	margin-left: calc(50% - 500px);
 }
 .fl {
 	float: left;
-	width: 620px;
+	width: 640px;
 }
 .fr{
 	position: absolute;
-	margin-left: 640px;
-	width: 350px;
-	/* left: 63%; */
+	margin-left: 660px;
+	width: 340px;
 }
 .fr .box{
 	height:300px;
-	width: 350px;
+	width: 340px;
 }
 .fr .fixdd{
 	position: fixed;
-	width: 350px;
-	left:842px;
+	width: 340px;
 	top:80px;
 }
 .box{

@@ -19,9 +19,8 @@ while ($row = mysqli_fetch_array($result,MYSQL_ASSOC)){
     array_push($arr,$row1);
 }
 
- echo arrayToJson($arr);
-// 将json数组串成标准化的
-// {}{}{}{} => {},{},{}
+echo json_encode($arr);
+
 function arrayToJson($temp1){
     $str = "";
     for($i=0;$i<count($temp1);$i++){

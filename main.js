@@ -2,7 +2,6 @@ var StartingLine = 0;
 var rowsNumber = 20;
 var winH = $(window).height();//页面的高度
 var timer = null;
-var timer1 = null;
 var flag = 1;
 var ddiv = `<div class = "box"> ${StartingLine} </div>`;
 var allowCreatebox=true;
@@ -56,7 +55,7 @@ function ajax (StartingLine,rowsNumber){
       cache:false,
       //complete:
       beforeSend:function(){$(".load").addClass("loading");},   
-      success:function(data){        
+      success:function(data){              
       flag=0; 
       editData(data);
       $(".load").removeClass("loading");
@@ -66,7 +65,7 @@ function ajax (StartingLine,rowsNumber){
 }
 //处理ajax获取的数据
 function editData(data){
-  data = data.split("*^^^^^^^^^^*");
+  data = JSON.parse(data);
   for(let i=0;i<rowsNumber;i++){
     if(data[i]){
       createBox(data[i]);

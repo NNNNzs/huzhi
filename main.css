@@ -2,8 +2,12 @@
 	padding: 0;margin: 0;
 	box-sizing:border-box;
 }
+:root{
+	--bg-color:#f6f6f6;
+	--main-color:rgb(247, 174, 189);
+}
 body{
-	background-color:#f6f6f6;
+	background-color:var(--bg-color);
 	min-width: 1000px;
 }
 a{text-decoration: none;}
@@ -37,7 +41,22 @@ a{text-decoration: none;}
 	0%{left:-100%;}
 	100%{left:0;}
 }
-
+.login-bg{
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(26,26,26,.3)
+}
+.login-form{
+	width: 670px;
+	height: 360px;
+	background-color: var(--bg-color);
+	border-radius: 20px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
 #logo {
 	float: left;
 	height: 70px;
@@ -52,16 +71,20 @@ a{text-decoration: none;}
 	border-color: rgb(110, 56, 28);
 }
 .banner-container .banner-item{
-	font-size: 20px;
+	font-size: 1.3em;
 	float: left;
 	margin-top: 20px;
 	margin-left: 10px;
-	color: rgb(247, 174, 189);
+	color: var(--main-color);
 	vertical-align: middle;
 }
 .banner-container .banner-item a{
 	color: rgb(247, 165, 181);
 }
+.banner-container .active a{
+	color: #000000
+}
+
 .banner-container .search{
 	position: relative;
 	display: inline-block;
@@ -75,13 +98,14 @@ a{text-decoration: none;}
 	width: 60%;
 	border-radius: 2px;
 	transition: width 0.3s;
-	background-color: #f6f6f6;
-	border: 1px solid  rgb(247, 174, 189);
+	background-color: var(--bg-color);
+	border: 1px solid  var(--main-color);
 }
 .banner-container .search input::placeholder{
+	line-height: 1rem;
 	padding-left: 1rem;
 }
-.banner-container .search input:focus{
+.banner-container .search:focus, .banner-container .search input:focus{
 	border-width: 3px;
 	width: 80%;
 	transition: width .3s;
